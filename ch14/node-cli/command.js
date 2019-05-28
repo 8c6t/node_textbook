@@ -3,6 +3,7 @@ const program = require('commander');
 const fs = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 
 const htmlTemplate = 
 `<!DOCTYPE html>
@@ -63,21 +64,21 @@ const makeTemplate = (type, name, directory) => {
   if(type === 'html') {
     const pathToFile = path.join(directory, `${name}.html`);
     if(exists(pathToFile)) {
-      console.error('이미 해당 파일이 존재합니다');
+      console.error(chalk.bold.red('이미 해당 파일이 존재합니다'));
     } else {
       fs.writeFileSync(pathToFile, htmlTemplate);
-      console.log(pathToFile, '생성 완료');
+      console.log(chalk.green(pathToFile, '생성 완료'));
     }
   } else if(type === 'express-router') {
     const pathToFile = path.join(directory, `${name}.js`);
     if(exists(pathToFile)) {
-      console.error('이미 해당 파일이 존재합니다');
+      console.error(chalk.bold.red('이미 해당 파일이 존재합니다'));
     } else {
       fs.writeFileSync(pathToFile, routerTemplate);
-      console.log(pathToFile, '생성 완료');
+      console.log(chalk.green(pathToFile, '생성 완료'));
     }
   } else {
-    console.error('html 도는 express-router 둘 중 하나를 입력하세요');
+    console.error(chalk.bold.red('html 도는 express-router 둘 중 하나를 입력하세요'));
   }
 };
 
@@ -138,6 +139,7 @@ if(!triggered) {
     .then((answers) => {
       if(answers.confirm) {
         makeTemplate(answers.type, answers.name, answers.directory);
+        console.log(chalk.rgb(128, 128, 128)('터미널을 종료합니다'));
       }
     });
 }
