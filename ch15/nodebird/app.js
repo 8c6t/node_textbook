@@ -49,7 +49,6 @@ const sessionOption = {
   store: new RedisStore({
     host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT,
-    pass: process.env.REDIS_PASSWORD,
     logErrors: true,
   }),
 };
