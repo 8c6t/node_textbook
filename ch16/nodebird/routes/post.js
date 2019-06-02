@@ -42,7 +42,11 @@ const upload = multer({
 router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
   console.log(req.file);
   // req.file.location에 s3 버킷 이미지 주소가 담겨 있음
-  res.json({ url: req.file.location });
+  // res.json({ url: req.file.location });
+
+  const originalUrl = req.file.location;
+  const url = originalUrl.replace(/\/original\//, '/thumb/');
+  res.json({ url, originalUrl });
 });
 
 // 게시글 업로드를 처리하는 라우터
